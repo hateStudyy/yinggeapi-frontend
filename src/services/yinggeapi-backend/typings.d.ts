@@ -136,7 +136,21 @@ declare namespace API {
     url?: string;
   };
 
-  type InterfaceInfoQueryRequest = {
+  type InterfaceInfoUpdateRequest = {
+    createTime?: string;
+    description?: string;
+    id?: number;
+    isDelete?: number;
+    method?: string;
+    name?: string;
+    requestHeader?: string;
+    responseHeader?: string;
+    status?: number;
+    updateTime?: string;
+    url?: string;
+  };
+
+  type listInterfaceInfoByPageUsingGETParams = {
     current?: number;
     description?: string;
     id?: number;
@@ -152,18 +166,20 @@ declare namespace API {
     userId?: number;
   };
 
-  type InterfaceInfoUpdateRequest = {
-    createTime?: string;
+  type listMyInterfaceInfoByPageUsingGETParams = {
+    current?: number;
     description?: string;
     id?: number;
-    isDelete?: number;
     method?: string;
     name?: string;
+    pageSize?: number;
     requestHeader?: string;
     responseHeader?: string;
+    sortField?: string;
+    sortOrder?: string;
     status?: number;
-    updateTime?: string;
     url?: string;
+    userId?: number;
   };
 
   type LoginUserVO = {
