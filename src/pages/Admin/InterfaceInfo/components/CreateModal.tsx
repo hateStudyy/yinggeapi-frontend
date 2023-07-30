@@ -13,7 +13,7 @@ const CreateModal: React.FC<Props> = (props) => {
 
   const { visible, columns, onCancel, onSubmit } = props;
   return (
-    <Modal open={visible} onCancel={() => onCancel?.()}>
+    <Modal open={visible} footer={null} onCancel={() => onCancel?.()}>
       <ProTable
         type={'form'}
         columns={columns}
