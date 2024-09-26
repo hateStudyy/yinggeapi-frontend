@@ -249,14 +249,14 @@ const TableList: React.FC = () => {
         >
           修改
         </a>,
-        record.status === 0 ? <a
+        record.status === 0 ? <Button
           key="config"
           onClick={() => {
             handleOnline(record);
           }}
         >
           发布
-        </a> : null,
+        </Button> : null,
         record.status === 1 ?<Button
           type="text"
           danger
@@ -266,7 +266,7 @@ const TableList: React.FC = () => {
           }}
         >
           下线
-        </Button> : null,
+        </Button>: null,
         <Button
           type="text"
           danger
