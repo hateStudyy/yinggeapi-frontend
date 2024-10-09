@@ -1,12 +1,15 @@
 import Footer from '@/components/Footer';
 import {Question} from '@/components/RightContent';
 import {LinkOutlined} from '@ant-design/icons';
-import {SettingDrawer} from '@ant-design/pro-components';
+import {PageLoading, SettingDrawer} from '@ant-design/pro-components';
 import type {RunTimeLayoutConfig} from '@umijs/max';
 import {history, Link} from '@umijs/max';
 import {AvatarDropdown, AvatarName} from './components/RightContent/AvatarDropdown';
 import {requestConfig} from './requestConfig';
 import {getLoginUserUsingGET} from "@/services/yinggeapi-backend/userController";
+import defaultSettings from "../config/defaultSettings";
+import {useEffect} from "react";
+
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -17,15 +20,18 @@ const loginPath = '/user/login';
 export async function getInitialState(): Promise<InitialState> {
   // 当页面首次加载时，获取要全局保存的数据，比如用户登录信息
   const state: InitialState = {
-    loginUser: undefined,
-  }
+    loginUser: {} as API.UserVO
+  };
   try {
     const res = await getLoginUserUsingGET();
+    // alert("getLoginUserUsingGET")
     if (res.data) {
       state.loginUser = res.data;
     }
   } catch (error) {
-    history.push(loginPath);
+    const currentPath = window.location.pathname + window.location.search;
+    // alert('Failed to get login user:')
+    history.push(loginPath+`?redirect=${currentPath}`);
   }
   return state;
 }
@@ -33,6 +39,7 @@ export async function getInitialState(): Promise<InitialState> {
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => {
+
   return {
     actionsRender: () => [<Question key="doc"/>],
     avatarProps: {
@@ -47,11 +54,6 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     },
     footerRender: () => <Footer/>,
     onPageChange: () => {
-      const {location} = history;
-      // 如果没有登录，重定向到 login
-      if (!initialState?.loginUser && location.pathname !== loginPath) {
-        history.push(loginPath);
-      }
     },
     layoutBgImgList: [
       {
@@ -93,7 +95,8 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
           <SettingDrawer
             disableUrlParams
             enableDarkTheme
-            settings={initialState?.settings}
+
+            settings={defaultSettings}
             onSettingChange={(settings) => {
               setInitialState((preInitialState) => ({
                 ...preInitialState,

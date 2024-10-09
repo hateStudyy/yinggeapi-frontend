@@ -1,12 +1,14 @@
 import Footer from '@/components/Footer';
 import { userLoginUsingPOST } from '@/services/yinggeapi-backend/userController';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
+import { LoginForm, ProFormText } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { Helmet, history, useModel } from '@umijs/max';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import Settings from '../../../../config/defaultSettings';
+import {getInitialState} from "@/app";
+import {loginUser} from "@/services/swagger/user";
 
 const LoginMessage: React.FC<{
   content: string;
@@ -44,11 +46,25 @@ const Login: React.FC = () => {
         ...values,
       });
       if (res.data) {
+        // // 设置全局的user信息
+        // // todo 看上去修好了，但是太不优雅
+        // setInitialState({loginUser: res.data});
+        // alert("afterSetInitialState: " + initialState);
+        // const urlParams = new URL(window.location.href).searchParams;
+        // // alert(urlParams.get('redirect'));
+        // const redirect = urlParams.get('redirect')
+        //   ? `${urlParams.get('redirect')}` // 拼接完整 URL
+        //   : '/'; // 默认首页路径
+        // // alert("pathname  "+window.location.pathname)
+        // // alert(redirect)
+        // history.push(redirect);
+        // // alert("init: "+ initialState);
+        // // alert("return")
+        // return;
         const urlParams = new URL(window.location.href).searchParams;
-        history.push( '/');// urlParams.get('redirect') ||
-        // 设置全局的user信息
+        history.push(urlParams.get('redirect') || '/');
         setInitialState({
-          loginUser: res.data,
+          loginUser: res.data
         });
         return;
       }

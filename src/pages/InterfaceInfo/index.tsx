@@ -16,7 +16,7 @@ import React, { useEffect, useState } from 'react';
 const Index: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [invokeLoading, setInvokeLoading] = useState(false);
-  const [data, setData] = useState<Api.InterfaceInfo>();
+  const [data, setData] = useState<API.InterfaceInfo>();
   const params = useParams();
   const [invokeRes, setInvokeRes] = useState<any>();
   const loadData = async (current: number = 1, pageSize: number = 10) => {

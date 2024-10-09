@@ -1,5 +1,5 @@
 declare namespace API {
-  type ApiResponse = {
+  type APIResponse = {
     code?: number;
     type?: string;
     message?: string;

@@ -113,7 +113,7 @@ export async function uploadFile(
     }
   });
 
-  return request<API.ApiResponse>(`/pet/${param0}/uploadImage`, {
+  return request<API.APIResponse>(`/pet/${param0}/uploadImage`, {
     method: 'POST',
     params: { ...queryParams },
     data: formData,
